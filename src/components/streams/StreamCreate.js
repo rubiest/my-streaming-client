@@ -14,9 +14,19 @@ class StreamCreate extends React.Component {
 
   renderInput = ({ input, label, meta }) => {
     return (
-      <div className={`field ${meta.touched && meta.error ? 'error' : ''}`}>
+      <div className={`field required ${meta.touched && meta.error ? 'error' : ''}`}>
         <label>{label}</label>
         <input {...input} autoComplete="off" />
+        {this.renderError(meta)}
+      </div>
+    )
+  }
+
+  renderTextArea = ({ input, label, meta }) => {
+    return (
+      <div className={`field required ${meta.touched && meta.error ? 'error' : ''}`}>
+        <label>{label}</label>
+        <textarea {...input} autoComplete="off" rows="4" />
         {this.renderError(meta)}
       </div>
     )
@@ -28,11 +38,18 @@ class StreamCreate extends React.Component {
 
   render(){
     return (
-      <form className="ui form error" onSubmit={this.props.handleSubmit(this.onSubmit)}>
-        <Field name="title" type="text" component={this.renderInput} label="Title" />
-        <Field name="description" type="text" component={this.renderInput} label="Description" />
-        <button className="ui button primary">Submit</button>
-      </form>
+      <div className="ui piled segment">
+        <div className="ui inverted segment">
+          <h4 className="ui header">Create New Stream Video</h4>
+        </div>
+        <div className="ui segment">
+          <form className="ui form error" onSubmit={this.props.handleSubmit(this.onSubmit)}>
+            <Field name="title" type="text" component={this.renderInput} label="Title" />
+            <Field name="description" type="text" component={this.renderTextArea} label="Description" />
+            <button className="ui button primary">Submit</button>
+          </form>
+        </div>
+      </div>
     )
   }
 }
