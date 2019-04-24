@@ -1,6 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+import { Link } from "react-router-dom";
 import { createStream } from '../../actions';
 
 class StreamCreate extends React.Component {
@@ -45,14 +46,33 @@ class StreamCreate extends React.Component {
           <h4 className="ui header">Create New Stream Video</h4>
         </div>
         <div className="ui segment">
-          <form className="ui form error" onSubmit={this.props.handleSubmit(this.onSubmit)}>
-            <Field name="title" type="text" component={this.renderInput} label="Title" />
-            <Field name="description" type="text" component={this.renderTextArea} label="Description" />
+          <form
+            className="ui form error"
+            onSubmit={this.props.handleSubmit(this.onSubmit)}
+          >
+            <Field
+              name="title"
+              type="text"
+              component={this.renderInput}
+              label="Title"
+            />
+            <Field
+              name="description"
+              type="text"
+              component={this.renderTextArea}
+              label="Description"
+            />
             <button className="ui button primary">Submit</button>
+            <Link
+              to="/"
+              className="ui button"
+            >
+              Cancel
+            </Link>
           </form>
         </div>
       </div>
-    )
+    );
   }
 }
 

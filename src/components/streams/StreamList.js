@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { fetchStreams } from '../../actions';
 
 class StreamList extends React.Component {
@@ -35,16 +36,28 @@ class StreamList extends React.Component {
     })
   }
 
+  renderCreate() {
+    if (this.props.isSignedIn) {
+      return (
+          <Link
+            to="/streams/new"
+            className="ui right floated button primary mini"
+          >
+            Create Stream
+          </Link>
+      );
+    }
+  }
+
   render() {
     return (
       <div className="ui piled segment">
-        <div className="ui inverted segment">
-          <h4 className="ui header">Stream List</h4>
+        <div className="ui inverted clearing segment" style={{height: '57px'}}>
+          <h3 className="ui left floated header">Stream List</h3>
+          {this.renderCreate()}
         </div>
         <div className="ui segment">
-          <div className="ui relaxed divided list">
-            {this.renderList()}
-          </div>
+          <div className="ui relaxed divided list">{this.renderList()}</div>
         </div>
       </div>
     );
@@ -54,7 +67,8 @@ class StreamList extends React.Component {
 const mapStateToProps = (state) => {
   return {
     streams: Object.values(state.streams),
-    currentUserId: state.auth.userId
+    currentUserId: state.auth.userId,
+    isSignedIn: state.auth.isSignedIn
   }
 }
 
